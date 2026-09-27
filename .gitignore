@@ -151,3 +151,10 @@ data/
 # Rollout videos and wandb logs
 rollouts/
 wandb/
+
+# VenusIA Project Exclusions
+modified_libero_rlds/
+logs/
+checkpoints/
+*.png
+*.mp4
