@@ -19,6 +19,8 @@ Usage:
 
 import os
 import sys
+sys.path.append("/work/cvcs2026/VenusIA/openvla/LIBERO")
+
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Optional, Union
@@ -103,12 +105,25 @@ def eval_libero(cfg: GenerateConfig) -> None:
     # Load model
     model = get_model(cfg)
 
-    # [OpenVLA] Check that the model contains the action un-normalization key
+# [OpenVLA] Check that the model contains the action un-normalization key
     if cfg.model_family == "openvla":
-        # In some cases, the key must be manually modified (e.g. after training on a modified version of the dataset
-        # with the suffix "_no_noops" in the dataset name)
+            # In some cases, the key must be manually modified (e.g. after training on a modified version of the dataset
+            # with the suffix "_no_noops" in the dataset name)
         if cfg.unnorm_key not in model.norm_stats and f"{cfg.unnorm_key}_no_noops" in model.norm_stats:
             cfg.unnorm_key = f"{cfg.unnorm_key}_no_noops"
+                
+            # Se la chiave manca del tutto (caso del modello vanilla), inietta le statistiche dalla run da 50k
+        if cfg.unnorm_key not in model.norm_stats:
+            import json
+            config_50k_path = "/work/cvcs2026/VenusIA/openvla/checkpoints/openvla_run2_50k_steps/openvla-7b+libero_spatial_no_noops+b12+lr-0.0005+lora-r32+dropout-0.0--image_aug/config.json"
+            
+            with open(config_50k_path, "r") as f:
+                ft_config = json.load(f)
+                    
+                # Estrae l'unica chiave presente nelle statistiche del modello fine-tunato
+            stats_key = list(ft_config["norm_stats"].keys())[0]
+            model.norm_stats[cfg.unnorm_key] = ft_config["norm_stats"][stats_key]
+
         assert cfg.unnorm_key in model.norm_stats, f"Action un-norm key {cfg.unnorm_key} not found in VLA `norm_stats`!"
 
     # [OpenVLA] Get Hugging Face processor

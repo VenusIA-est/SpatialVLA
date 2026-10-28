@@ -1,0 +1,28 @@
+Caricamento modello ufficiale da: openvla/openvla-7b-finetuned-libero-spatial...
+
+Inizio First-Action Probe...
+==================================================
+
+TASK_0 (Between)
+----------------
+Ground Truth (X, Y, Z): [0.1232, 0.2571, 0.1554]
+  Original | Pred: [0.2346, 0.2036, 0.1733] | MSE(xyz): 0.005199
+  Swapped  | Pred: [-0.0030, 0.1795, -0.0027] | MSE(xyz): 0.015643
+  Removed  | Pred: [-0.0030, -0.0014, -0.0027] | MSE(xyz): 0.035912
+
+TASK_3 (On Cookie Box)
+----------------------
+Ground Truth (X, Y, Z): [0.3161, 0.1848, 0.1152]
+  Original | Pred: [0.4788, 0.3724, 0.1293] | MSE(xyz): 0.020628
+  Swapped  | Pred: [0.2082, -0.0014, -0.0027] | MSE(xyz): 0.020066
+  Removed  | Pred: [-0.0030, 0.2096, -0.0027] | MSE(xyz): 0.038768
+
+TASK_1 (Next to Ramekin)
+------------------------
+Ground Truth (X, Y, Z): [0.2732, 0.3643, -0.0000]
+  Original | Pred: [-0.0030, 0.4930, -0.0027] | MSE(xyz): 0.030955
+  Swapped  | Pred: [0.3666, 0.2398, -0.0027] | MSE(xyz): 0.008077
+  Removed  | Pred: [0.5844, 0.3242, -0.0027] | MSE(xyz): 0.032819
+
+==================================================
+Test completato.

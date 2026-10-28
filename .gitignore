@@ -156,5 +156,8 @@ wandb/
 modified_libero_rlds/
 logs/
 checkpoints/
+*.log
 *.png
 *.mp4
+adapter-tmp/
+LIBERO/
